@@ -19,6 +19,12 @@ const { title, description = "Software engineer. I build privacy systems, measur
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script is:inline>
+      const stored = localStorage.getItem('theme');
+      if (stored !== 'light') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body class="min-h-screen">
     <header class="border-b border-[#E2E8F0] dark:border-slate-800">
@@ -55,11 +61,6 @@ const { title, description = "Software engineer. I build privacy systems, measur
     </footer>
 
     <script is:inline>
-      const stored = localStorage.getItem('theme');
-      if (stored !== 'light') {
-        document.documentElement.classList.add('dark');
-      }
-
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
