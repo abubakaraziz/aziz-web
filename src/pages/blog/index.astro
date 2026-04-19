@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Blog">
+  <h1 class="text-2xl font-bold text-[#0F172A] dark:text-slate-100 mb-2">Blog</h1>
+  <p class="text-[#64748B] dark:text-slate-400 mb-10">Writing about privacy engineering, systems, and whatever I'm learning.</p>
+
+  {posts.length === 0 ? (
+    <p class="text-[#64748B] dark:text-slate-500">Posts coming soon.</p>
+  ) : (
+    <ul class="space-y-6">
+      {posts.map((post) => (
+        <li class="border-b border-[#E2E8F0] dark:border-slate-800 pb-6 last:border-0">
+          <div class="flex items-baseline justify-between gap-4 mb-1">
+            <a href={`/blog/${post.id}`} class="font-medium text-[#0F172A] dark:text-slate-100 hover:text-[#0D9488] no-underline">
+              {post.data.title}
+            </a>
+            <span class="text-sm text-[#64748B] dark:text-slate-500 flex-shrink-0">
+              {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            </span>
+          </div>
+          {post.data.description && (
+            <p class="text-sm text-[#64748B] dark:text-slate-400 mb-2">{post.data.description}</p>
+          )}
+          {post.data.tags.length > 0 && (
+            <div class="flex gap-2">
+              {post.data.tags.map((tag) => (
+                <span class="text-xs text-[#0D9488] bg-teal-50 dark:bg-teal-900/20 px-2 py-0.5 rounded">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>

@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const PROJECT_ORDER = ['google-topics-api', 'web-almanac-third-parties', 'iab-ccpa', 'google-search-market'];
+const projects = (await getCollection('projects'))
+  .filter((p) => p.id !== 'iab-gpp')
+  .sort((a, b) => PROJECT_ORDER.indexOf(a.id) - PROJECT_ORDER.indexOf(b.id))
+  .slice(0, 4);
+
+const news = [
+  { date: "Mar 2026", text: 'Industry talk accepted at PEPR 2026 — <a href="https://www.usenix.org/conference/pepr26/presentation/aziz" class="text-[#0D9488]">Why Consent Fails in Practice</a>' },
+  { date: "Jan 2026", text: 'Paper on Google\'s Topics API accepted at <a href="https://www2026.thewebconf.org/" class="text-[#0D9488]">WWW 2026</a>' },
+  { date: "Jan 2026", text: 'Co-authored the <a href="https://almanac.httparchive.org/en/2025/third-parties" class="text-[#0D9488]">Third Parties chapter</a> of the 2025 Web Almanac' },
+  { date: "Jun 2025", text: "Presented Topics API poster at Google Ads Privacy Conference, Mountain View" },
+  { date: "Nov 2024", text: 'Received travel grant; attended <a href="https://conferences.sigcomm.org/imc/2024/" class="text-[#0D9488]">IMC 2024</a> in Madrid' },
+  { date: "Jul 2024", text: 'Presented PETS 2024 paper in Bristol, UK' },
+  { date: "Jun 2024", text: 'Best Paper Honourable Mention at <a href="https://www.icwsm.org/2024/" class="text-[#0D9488]">AAAI ICWSM 2024</a>' },
+];
+---
+
+<Base title="Abubakar Aziz">
+  <!-- Hero -->
+  <section class="mb-14">
+    <div class="flex items-start gap-6 mb-5">
+      <img
+        src="/assets/prof_pic.jpg"
+        alt="Abubakar Aziz"
+        class="w-28 h-28 rounded-full object-cover flex-shrink-0"
+        onerror="this.style.display='none'"
+      />
+      <div>
+        <h1 class="text-2xl font-bold text-[#0F172A] dark:text-slate-100 mb-1">Abubakar Aziz</h1>
+        <p class="text-xs text-[#64748B] dark:text-slate-500 mb-3">PhD Candidate · Northeastern University · Boston, MA</p>
+        <div class="flex flex-wrap items-center gap-4 text-sm">
+          <span class="flex items-center gap-1.5 text-[#0D9488] font-medium">
+            <span class="w-2 h-2 rounded-full bg-[#0D9488] inline-block animate-pulse"></span>
+            Open to work
+          </span>
+          <a href="mailto:aziz.muh@northeastern.edu" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">Email</a>
+          <a href="https://github.com/abubakaraziz" target="_blank" rel="noopener" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">GitHub</a>
+          <a href="https://linkedin.com/in/aziz313f" target="_blank" rel="noopener" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">LinkedIn</a>
+          <a href="https://scholar.google.com/citations?user=0rBwAFkAAAAJ" target="_blank" rel="noopener" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">Scholar</a>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-3 text-[#0F172A] dark:text-slate-300 leading-relaxed">
+      <p>I'm a software engineer and final-year PhD candidate at Northeastern University. I build systems and tools to measure privacy on the web: data pipelines, large-scale crawlers, and consent signal audits that run across millions of sites.</p>
+      <p>My research asks whether privacy protections actually work in practice, for users and not just on paper. Lately I've also been getting into AI privacy, security, and governance: how AI systems handle personal data and what it takes to make that auditable. I write about what I find, and I'm actively looking for full-time roles and postdoc positions in software, privacy, or systems engineering.</p>
+    </div>
+  </section>
+
+  {/* TODO: Unhide Recent Writing section once you have 3+ blog posts */}
+  {posts.length >= 3 && (
+  <section class="mb-14">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="font-semibold text-[#0F172A] dark:text-slate-100">Recent Writing</h2>
+      <a href="/blog" class="text-sm text-[#0D9488] no-underline hover:underline">View all →</a>
+    </div>
+    <ul class="space-y-4">
+      {posts.map((post) => (
+        <li class="flex items-baseline justify-between gap-4">
+          <a href={`/blog/${post.id}`} class="text-[#0F172A] dark:text-slate-200 hover:text-[#0D9488] no-underline font-medium">
+            {post.data.title}
+          </a>
+          <span class="text-sm text-[#64748B] dark:text-slate-500 flex-shrink-0">
+            {post.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+  )}
+
+  <!-- Projects -->
+  <section class="mb-14">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="font-semibold text-[#0F172A] dark:text-slate-100">Projects</h2>
+      <a href="/projects" class="text-sm text-[#0D9488] no-underline hover:underline">View all →</a>
+    </div>
+    <div class="grid gap-4">
+      {projects.map((project) => (
+        <div class="border border-[#E2E8F0] dark:border-slate-800 rounded-lg p-4 hover:border-[#0D9488] transition-colors">
+          <div class="flex items-start justify-between gap-3 mb-1">
+            <h3 class="font-medium text-[#0F172A] dark:text-slate-100 text-sm">{project.data.title}</h3>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              {project.data.award && (
+                <span class="text-xs bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-2 py-0.5 rounded font-medium">★ {project.data.award}</span>
+              )}
+              {project.data.venue && (
+                <span class="text-xs bg-teal-50 text-[#0D9488] dark:bg-teal-900/30 px-2 py-0.5 rounded font-medium">{project.data.venue}</span>
+              )}
+              {project.data.status && (
+                <span class="text-xs bg-slate-100 text-[#64748B] dark:bg-slate-800 px-2 py-0.5 rounded">{project.data.status}</span>
+              )}
+            </div>
+          </div>
+          <p class="text-sm text-[#64748B] dark:text-slate-400 mb-3">{project.data.description}</p>
+          <div class="flex items-center justify-between">
+            <div class="flex flex-wrap gap-1.5">
+              {project.data.tech.slice(0, 3).map((t) => (
+                <span class="text-xs text-[#64748B] dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">{t}</span>
+              ))}
+            </div>
+            <div class="flex gap-3 text-xs">
+              {project.data.paper && <a href={project.data.paper} class="text-[#0D9488] no-underline hover:underline">Paper</a>}
+              {project.data.code && <a href={project.data.code} target="_blank" rel="noopener" class="text-[#0D9488] no-underline hover:underline">Code</a>}
+              {project.data.html && <a href={project.data.html} target="_blank" rel="noopener" class="text-[#0D9488] no-underline hover:underline">Read</a>}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- News -->
+  <section>
+    <h2 class="font-semibold text-[#0F172A] dark:text-slate-100 mb-5">News</h2>
+    <ul class="space-y-3">
+      {news.map((item) => (
+        <li class="flex gap-4 text-sm">
+          <span class="text-[#64748B] dark:text-slate-500 flex-shrink-0 w-20">{item.date}</span>
+          <span class="text-[#0F172A] dark:text-slate-300" set:html={item.text} />
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

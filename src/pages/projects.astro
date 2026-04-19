@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => b.data.year - a.data.year);
+---
+
+<Base title="Projects">
+  <h1 class="text-2xl font-bold text-[#0F172A] dark:text-slate-100 mb-2">Projects</h1>
+  <p class="text-[#64748B] dark:text-slate-400 mb-10">Research systems I've built — published at top venues in privacy and web measurement.</p>
+
+  <div class="grid gap-5">
+    {projects.map((project) => (
+      <div class="border border-[#E2E8F0] dark:border-slate-800 rounded-lg p-5 hover:border-[#0D9488] transition-colors">
+        <div class="flex items-start justify-between gap-3 mb-2">
+          <h2 class="font-semibold text-[#0F172A] dark:text-slate-100">{project.data.title}</h2>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            {project.data.award && (
+              <span class="text-xs bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-2 py-0.5 rounded font-medium">★ {project.data.award}</span>
+            )}
+            {project.data.venue && (
+              <span class="text-xs bg-teal-50 text-[#0D9488] dark:bg-teal-900/30 px-2 py-0.5 rounded font-medium">{project.data.venue}</span>
+            )}
+            {project.data.status && (
+              <span class="text-xs bg-slate-100 text-[#64748B] dark:bg-slate-800 px-2 py-0.5 rounded">{project.data.status}</span>
+            )}
+          </div>
+        </div>
+        <p class="text-sm text-[#64748B] dark:text-slate-400 mb-4">{project.data.description}</p>
+        <div class="flex items-center justify-between">
+          <div class="flex flex-wrap gap-1.5">
+            {project.data.tech.map((t) => (
+              <span class="text-xs text-[#64748B] dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">{t}</span>
+            ))}
+          </div>
+          <div class="flex gap-3 text-sm">
+            {project.data.paper && <a href={project.data.paper} class="text-[#0D9488] no-underline hover:underline">Paper</a>}
+            {project.data.code && <a href={project.data.code} target="_blank" rel="noopener" class="text-[#0D9488] no-underline hover:underline">Code</a>}
+            {project.data.html && <a href={project.data.html} target="_blank" rel="noopener" class="text-[#0D9488] no-underline hover:underline">Read</a>}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</Base>

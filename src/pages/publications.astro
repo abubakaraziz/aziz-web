@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const publications = (await getCollection('projects'))
+  .sort((a, b) => b.data.year - a.data.year);
+---
+
+<Base title="Publications">
+  <h1 class="text-2xl font-bold text-[#0F172A] dark:text-slate-100 mb-2">Publications</h1>
+  <p class="text-sm text-[#64748B] dark:text-slate-400 mb-10">* indicates equal contribution</p>
+
+  <div class="space-y-8">
+    {publications.map((pub) => (
+      <div class="border-l-2 border-[#E2E8F0] dark:border-slate-700 pl-5 hover:border-[#0D9488] transition-colors">
+        <div class="flex flex-wrap items-center gap-2 mb-1">
+          {pub.data.award && (
+            <span class="text-xs bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-2 py-0.5 rounded font-medium">★ {pub.data.award}</span>
+          )}
+          {pub.data.status && (
+            <span class="text-xs bg-slate-100 text-[#64748B] dark:bg-slate-800 dark:text-slate-400 px-2 py-0.5 rounded italic">{pub.data.status}</span>
+          )}
+        </div>
+
+        <h2 class="font-semibold text-[#0F172A] dark:text-slate-100 leading-snug mb-1">
+          {pub.data.title}
+        </h2>
+
+        {pub.data.authors && (
+          <p class="text-sm text-[#64748B] dark:text-slate-400 mb-1"
+            set:html={pub.data.authors.replace(
+              'Muhammad Abu Bakar Aziz',
+              '<span class="font-medium text-[#0F172A] dark:text-slate-200">Muhammad Abu Bakar Aziz</span>'
+            )}
+          />
+        )}
+
+        <p class="text-sm text-[#0D9488] mb-3">
+          {pub.data.venue && <span class="italic">{pub.data.venue}</span>}
+          {pub.data.venue && <span class="text-[#64748B] dark:text-slate-500">, </span>}
+          <span class="text-[#64748B] dark:text-slate-500">{pub.data.year}</span>
+        </p>
+
+        <div class="flex gap-4 text-sm">
+          {pub.data.paper && (
+            <a href={pub.data.paper} class="text-[#0D9488] no-underline hover:underline">[PDF]</a>
+          )}
+          {pub.data.code && (
+            <a href={pub.data.code} target="_blank" rel="noopener" class="text-[#0D9488] no-underline hover:underline">[Code]</a>
+          )}
+          {pub.data.html && (
+            <a href={pub.data.html} target="_blank" rel="noopener" class="text-[#0D9488] no-underline hover:underline">[HTML]</a>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</Base>

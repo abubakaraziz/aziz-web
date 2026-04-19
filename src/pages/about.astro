@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="About">
+  <div class="flex items-start gap-6 mb-10">
+    <img
+      src="/assets/prof_pic.jpg"
+      alt="Abubakar Aziz"
+      class="w-24 h-24 rounded-full object-cover flex-shrink-0"
+      onerror="this.style.display='none'"
+    />
+    <div>
+      <h1 class="text-2xl font-bold text-[#0F172A] dark:text-slate-100 mb-1">Abubakar Aziz</h1>
+      <p class="text-[#64748B] dark:text-slate-400 text-sm">PhD Candidate · Northeastern University · Boston, MA</p>
+      <div class="flex flex-wrap gap-3 mt-3 text-sm">
+        <a href="mailto:aziz.muh@northeastern.edu" class="text-[#0D9488] no-underline hover:underline">aziz.muh@northeastern.edu</a>
+        <a href="https://github.com/abubakaraziz" target="_blank" rel="noopener" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">GitHub</a>
+        <a href="https://linkedin.com/in/aziz313f" target="_blank" rel="noopener" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">LinkedIn</a>
+        <a href="https://scholar.google.com/citations?user=0rBwAFkAAAAJ" target="_blank" rel="noopener" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">Scholar</a>
+        <a href="https://twitter.com/aziz313f" target="_blank" rel="noopener" class="text-[#64748B] dark:text-slate-400 hover:text-[#0D9488] no-underline">X</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bio -->
+  <section class="mb-10">
+    <p class="text-[#0F172A] dark:text-slate-300 leading-relaxed mb-4">
+      I'm a final-year PhD candidate in Computer Science at Northeastern University, where I build scalable systems and tools to tackle challenges in AI, web privacy, and security.
+    </p>
+    <p class="text-[#0F172A] dark:text-slate-300 leading-relaxed mb-4">
+      My research focuses on developing scalable tools to investigate privacy and security issues — building data pipelines with Apache Spark to process terabytes of web data, and performing large-scale analyses of how consent signals move across the internet. I study how organizations comply with (or fail to comply with) privacy regulations such as CCPA and explore how AI agents can make privacy governance more transparent and automated.
+    </p>
+    <p class="text-[#0F172A] dark:text-slate-300 leading-relaxed">
+      More than anything, I love building things from the ground up. Whether designing data pipelines, creating new tools, or exploring emerging technologies — I enjoy turning ideas into real, impactful systems. I'm actively seeking full-time roles in software engineering, privacy engineering, and systems engineering.
+    </p>
+  </section>
+
+  <!-- CV -->
+  <section class="mb-10">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="font-semibold text-[#0F172A] dark:text-slate-100">Experience & Education</h2>
+      <a href="/assets/cv.pdf" target="_blank" rel="noopener" class="text-sm text-[#0D9488] no-underline hover:underline">Download CV ↓</a>
+    </div>
+
+    <div class="space-y-6">
+      <div>
+        <div class="flex items-baseline justify-between mb-1">
+          <h3 class="font-medium text-[#0F172A] dark:text-slate-100">PhD, Computer Science</h3>
+          <span class="text-sm text-[#64748B] dark:text-slate-500">2020 – Present</span>
+        </div>
+        <p class="text-sm text-[#64748B] dark:text-slate-400">Northeastern University · Boston, MA</p>
+        <p class="text-sm text-[#64748B] dark:text-slate-400 mt-1">Advisor: Christo Wilson · Focus: Web privacy, consent signals, CCPA compliance</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="mb-10">
+    <h2 class="font-semibold text-[#0F172A] dark:text-slate-100 mb-4">Skills</h2>
+    <div class="grid grid-cols-2 gap-4 text-sm">
+      <div>
+        <p class="text-[#64748B] dark:text-slate-500 mb-2 font-medium">Languages</p>
+        <p class="text-[#0F172A] dark:text-slate-300">Python, JavaScript, SQL, Bash</p>
+      </div>
+      <div>
+        <p class="text-[#64748B] dark:text-slate-500 mb-2 font-medium">Systems & Data</p>
+        <p class="text-[#0F172A] dark:text-slate-300">Apache Spark, BigQuery, PostgreSQL</p>
+      </div>
+      <div>
+        <p class="text-[#64748B] dark:text-slate-500 mb-2 font-medium">Web & Measurement</p>
+        <p class="text-[#0F172A] dark:text-slate-300">Web crawling, Selenium, HTTP Archive</p>
+      </div>
+      <div>
+        <p class="text-[#64748B] dark:text-slate-500 mb-2 font-medium">Domains</p>
+        <p class="text-[#0F172A] dark:text-slate-300">Privacy engineering, AI governance, security</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open to work -->
+  <section class="border border-[#E2E8F0] dark:border-slate-800 rounded-lg p-5 bg-teal-50/50 dark:bg-teal-900/10">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-2 h-2 rounded-full bg-[#0D9488] inline-block animate-pulse"></span>
+      <h2 class="font-semibold text-[#0D9488]">Open to Work</h2>
+    </div>
+    <p class="text-sm text-[#64748B] dark:text-slate-400 mb-3">
+      I'm actively seeking full-time roles starting mid-2026. Interested in privacy engineering, software engineering, systems engineering, and research engineering positions.
+    </p>
+    <a href="mailto:aziz.muh@northeastern.edu" class="text-sm text-[#0D9488] no-underline hover:underline">Get in touch →</a>
+  </section>
+</Base>
