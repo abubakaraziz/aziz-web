@@ -1,4 +1,4 @@
-# Abubakar Aziz — Website Revamp Reference
+# Abubakar Aziz — Website Reference
 
 ## Coding Guidelines
 1. **Think before coding** — state assumptions explicitly, ask when unclear, surface tradeoffs
@@ -6,82 +6,111 @@
 3. **Surgical changes** — touch only what's needed, don't improve adjacent code
 4. **Goal-driven** — state a plan with verifiable steps before multi-step tasks
 
-
+## Writing Style
+- No em dashes (—) in prose copy. Use commas or colons instead.
+- Keep bio text conversational, not academic.
 
 ## Identity & Goals
 - **Who:** Muhammad Abu Bakar Aziz — PhD candidate (final year) at Northeastern University
 - **Role:** Privacy + systems software engineer (not data scientist, not purely academic)
-- **Looking for:** Full-time role — open to privacy engineering, security engineering, systems engineering, research engineering
-- **Future:** Plans to learn ML and blog about it later — leave space for it
+- **Looking for:** Full-time roles and postdoc positions in software, privacy, systems, or research engineering
+- **Research focus:** Web privacy & security, internet measurement, AI privacy & governance
+- **Future:** Plans to learn ML and blog about it — leave space for it
 - **Active blogger:** Blog is a primary goal, not an afterthought
 
 ## Brand Direction
 - Frame as a **builder/engineer**, not an academic
 - Publications → **Projects** (framed as things built and shipped)
-- Identity line: *"Software engineer. I build privacy systems, measure the web, and write about both."*
 - Open to roles beyond privacy — don't pigeonhole
 
 ## Design Decisions
-- **Theme:** Light mode default, dark mode toggle
+- **Default theme:** Dark mode (light toggle available)
 - **Accent color:** Teal `#0D9488`
-- **Background:** Off-white `#FAFAF9`
-- **Text:** Near-black `#0F172A`
-- **Typography:** Inter (UI), readable serif for long-form posts
-- **Visualization:** Strong visual emphasis — project cards have thumbnail/chart previews, blog posts support inline charts
-- **Tech stack:** Astro + Tailwind CSS, deployed on Vercel
+- **Background:** Off-white `#FAFAF9` (light) / `#0F172A` (dark)
+- **Text:** Near-black `#0F172A` (light) / `#F1F5F9` (dark)
+- **Typography:** Inter
+- **Tech stack:** Astro 6 + Tailwind CSS v4, deployed on Vercel
+- **Repo:** github.com/abubakaraziz/aziz-web
+- **Domain:** abubakaraziz.com (DNS on Squarespace, pointed to Vercel)
 
-## Top 5 Theme References
+## Tech Notes
+- Astro 6 requires Node v22+ (use `nvm use 22`)
+- Tailwind v4 uses `@import "tailwindcss"` and `@tailwindcss/vite` plugin
+- Dark mode uses class-based variant: `@custom-variant dark (&:where(.dark, .dark *))` in global.css
+- Theme script must be in `<head>` (not bottom of body) to prevent white flash on load
+- Content collections use glob loader (Astro 5+ API), NOT the old defineCollection format
 
-### 1. Dante — `dante-astro-theme.netlify.app`
-- Best overall: projects + blog sections, clean cards, light/dark toggle
-- Closest to target structure (hero → projects → writing)
-- Free, Astro + Tailwind
+## File Structure
+```
+src/
+  layouts/Base.astro          — nav, footer, dark mode script
+  pages/
+    index.astro               — homepage: hero + bio + projects + news
+    about.astro               — bio, CV, skills, open to work
+    projects.astro            — all projects grid
+    publications.astro        — academic format publications list
+    blog/index.astro          — blog listing
+    blog/[...id].astro        — blog post template
+  content/
+    blog/                     — .md blog posts (title, date, description, tags, draft)
+    projects/                 — .md project files (see schema below)
+  styles/global.css           — theme variables, dark mode, prose styles
+public/
+  assets/
+    prof_pic.jpg              — profile photo
+    pdf/                      — paper PDFs
+      iab-ccpa-compliance.pdf
+      google_search_paper.pdf
+      google-topics-www26.pdf
+    cv.pdf                    — TODO: add this file
+```
 
-### 2. Astro Nano — `astro-nano-demo.vercel.app`
-- Ultra minimal: bio, latest posts, work experience, recent projects
-- Great for "builder" identity — all signal, no noise
-- Free, Astro + Tailwind
+## Content Schemas
 
-### 3. Northendlab Light — `northendlab-light-astro.vercel.app`
-- Light mode default, blog grid with image thumbnails
-- Great for visual-heavy posts
-- Free, Astro + Tailwind
+### Blog post frontmatter
+```yaml
+title: ""
+date: YYYY-MM-DD
+description: ""
+tags: []
+draft: false
+```
 
-### 4. Logbook Astro — `logbook-astro.vercel.app`
-- Most polished/refined out of the box
-- Featured image thumbnails per post, sidebar, tags
-- Best for visual storytelling in blog posts
-- Paid theme
+### Project frontmatter
+```yaml
+title: ""
+description: ""
+venue: ""           # e.g. "ICWSM 2024"
+year: 2024
+authors: ""
+tech: []
+paper: "/assets/pdf/filename.pdf"
+code: "https://github.com/..."
+html: "https://..."
+award: ""           # e.g. "Best Paper Honourable Mention"
+status: ""          # e.g. "Under Submission"
+```
 
-### 5. bytekai.dev (minimal-astro-portfolio on GitHub)
-- Best "builder" identity: projects with tech stack badges, blog with dates
-- Closest to the exact layout concept discussed
-- Free, Astro + Tailwind
+## Homepage Project Order
+Controlled by `PROJECT_ORDER` array in `src/pages/index.astro`:
+```js
+const PROJECT_ORDER = ['google-topics-api', 'web-almanac-third-parties', 'iab-ccpa', 'google-search-market'];
+```
+Edit this array to reorder. `iab-gpp` is excluded from homepage (still shows on /projects and /publications).
 
-## Inspiration Sites
-- **huyenchip.com/blog** — blog-forward, clean reading experience
-- **mihaileric.com** — social proof on posts (view counts, HN mentions), "Popular" + "Trending"
-- **leerob.com** — whitespace, minimal, text-first
-- **astro-nano-demo.vercel.app** — structure reference
-- **distill.pub** — visual research communication
-
-## Final Decisions (locked in)
-- **Build approach:** From scratch — NOT a template. User can code and wants full control.
-- **Primary design inspiration:** huyenchip.com (aesthetic) + mihaileric.com (structure/social proof)
-- **Current site:** Jekyll + al-folio at `/Users/aziz/abubakaraziz.github.io` — migrate content from here
-- **Real blog posts to migrate:** `topics-api`, `instrumenting-Javascript-API`, `reflections-growth-and-challenges`
-- **Deploy:** Vercel → abubakaraziz.com
+## Recent Writing Section
+Hidden on homepage until 3+ published posts exist. Controlled by `posts.length >= 3` check in `src/pages/index.astro`. Remove this condition once you have enough posts.
 
 ## Content Inventory
 
-### Publications → Projects
-| Project Title | Venue | Year | Links | Tech |
-|---|---|---|---|---|
-| IAB CCPA Compliance Auditor | PoPETS 2024(4) | 2024 | Paper, Code (GitHub) | Python, Spark, Selenium |
-| Google Topics API Privacy Audit | WWW 2026 | 2026 | Paper | Python, BigQuery |
-| Google Search Market Share Analysis ★ Best Paper HM | ICWSM 2024 | 2024 | Paper | Python, Spark |
-| IAB Global Privacy Platform (One String to Rule Them All) | Under Submission | 2026 | — | — |
-| Third Parties (Web Almanac) | HTTP Archive 2025 | 2025 | HTML | — |
+### Projects / Publications
+| File | Title | Venue | Year |
+|---|---|---|---|
+| google-topics-api.md | Google Topics API Privacy Audit | WWW 2026 | 2026 |
+| web-almanac-third-parties.md | Third Parties — Web Almanac 2025 | HTTP Archive Web Almanac | 2025 |
+| iab-ccpa.md | IAB CCPA Compliance Auditor | PoPETS 2024 | 2024 |
+| google-search-market.md | Google Search Market Share Analysis | ICWSM 2024 | 2024 |
+| iab-gpp.md | IAB Global Privacy Platform Measurement | Under Submission | 2026 |
 
 ### Contact & Social
 - Email: aziz.muh@northeastern.edu
@@ -90,41 +119,7 @@
 - Google Scholar: scholar.google.com/citations?user=0rBwAFkAAAAJ
 - Twitter/X: twitter.com/aziz313f
 
-### Key News (for homepage)
-- Mar 2026: Industry talk at PEPR 2026 — "Why Consent Fails in Practice"
-- Jan 2026: Paper accepted at WWW 2026
-- Jun 2025: Presented at Google Ads Privacy Conference
-- Jun 2024: Best Paper Honorable Mention at ICWSM 2024
-
-## Homepage Layout (Wireframe)
-```
-[Name]                          Blog  Projects  About  ◑
-
-Software engineer. I build privacy systems,
-measure the web, and write about what I find.
-
-[GitHub]  [LinkedIn]  [Scholar]     ● Open to work
-
-─────────────────────────────────────────────────────
-Recent Writing
-→ Post title ................................ date
-→ Post title ................................ date
-                                        View all →
-
-─────────────────────────────────────────────────────
-Projects  (publications framed as built things)
-┌──────────────────┐  ┌──────────────────┐
-│ [visual/chart]   │  │ [visual/chart]   │
-│ Project Title    │  │ Project Title    │
-│ 1-line summary   │  │ 1-line summary   │
-│ Python · Spark   │  │ Python · BigQuery│
-│ [Venue] [Paper]  │  │ [Venue] [Paper]  │
-└──────────────────┘  └──────────────────┘
-                                    View all →
-```
-
-## Visualization Plan
-- Each project card: thumbnail image or key finding chart (not just text)
-- Blog posts: support inline charts (Chart.js or D3.js via MDX components)
-- Post cards on blog index: featured image per post
-- Consider open-sourcing anonymized datasets as interactive demos
+## TODOs
+- [ ] Add `cv.pdf` to `public/assets/cv.pdf` (linked in About page)
+- [ ] Add 3+ blog posts to unhide Recent Writing section on homepage
+- [ ] Add profile images/chart thumbnails to project cards (visualization plan)
