@@ -1,5 +1,5 @@
 ---
-title: "Third Parties — Web Almanac 2025"
+title: "Third Parties"
 description: "Co-authored the Third Parties chapter of the 2025 HTTP Archive Web Almanac, analyzing third-party resource usage across millions of websites."
 venue: "HTTP Archive Web Almanac"
 year: 2025
