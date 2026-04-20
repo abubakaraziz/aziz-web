@@ -1,6 +1,6 @@
 ---
-title: "IAB CCPA Compliance Auditor"
-description: "Built a crawler to audit CCPA consent compliance across thousands of top websites — found widespread failures in opt-out signal propagation."
+title: "CCPA Privacy Signal Measurement System"
+description: "Built a distributed crawler and audit pipeline to measure CCPA opt-out signal propagation across thousands of top websites, revealing widespread failures in enforcement."
 venue: "PoPETS 2024(4)"
 year: 2024
 authors: "Muhammad Abu Bakar Aziz, Christo Wilson"
