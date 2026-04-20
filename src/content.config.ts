@@ -16,6 +16,7 @@ const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
+    paper_title: z.string().optional(),
     description: z.string(),
     venue: z.string().optional(),
     year: z.number(),

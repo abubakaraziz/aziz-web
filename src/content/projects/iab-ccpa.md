@@ -1,5 +1,6 @@
 ---
-title: "Johnny Still Can't Opt-out: Assessing the IAB CCPA Compliance Framework"
+title: "CCPA Privacy Signal Measurement System"
+paper_title: "Johnny Still Can't Opt-out: Assessing the IAB CCPA Compliance Framework"
 description: "Built a distributed crawler and audit pipeline to measure CCPA opt-out signal propagation across thousands of top websites, revealing widespread failures in enforcement."
 venue: "PoPETS 2024(4)"
 year: 2024

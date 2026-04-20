@@ -1,5 +1,6 @@
 ---
-title: "One String to Rule Them All: Measuring Consent Under the IAB Global Privacy Platform"
+title: "IAB Global Privacy Platform Measurement"
+paper_title: "One String to Rule Them All: Measuring Consent Under the IAB Global Privacy Platform"
 description: "Measuring how consent strings actually propagate under the IAB Global Privacy Platform across the web."
 year: 2026
 authors: "Muhammad Abu Bakar Aziz, Christo Wilson"

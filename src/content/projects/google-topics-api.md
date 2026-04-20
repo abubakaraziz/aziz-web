@@ -1,5 +1,6 @@
 ---
-title: "Inferring Users' Demographics and Sensitive Interests Using the Topics API"
+title: "Google Topics API Privacy Audit"
+paper_title: "Inferring Users' Demographics and Sensitive Interests Using the Topics API"
 description: "Measured whether Google's Topics API can be abused to infer users' demographics and sensitive interests from browsing history. Found predictive signals in 17 of 19 traits."
 venue: "WWW 2026"
 year: 2026

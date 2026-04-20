@@ -23,7 +23,7 @@ const publications = (await getCollection('projects'))
         </div>
 
         <h2 class="font-semibold text-[#0F172A] dark:text-slate-100 leading-snug mb-1">
-          {pub.data.title}
+          {pub.data.paper_title ?? pub.data.title}
         </h2>
 
         {pub.data.authors && (

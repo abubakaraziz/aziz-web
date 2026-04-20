@@ -1,5 +1,6 @@
 ---
-title: "Market or Markets? Investigating Google Search's Market Shares Under Vertical Segmentation"
+title: "Google Search Market Share Analysis"
+paper_title: "Market or Markets? Investigating Google Search's Market Shares Under Vertical Segmentation"
 description: "First large-scale analysis of Google Search's market share under vertical segmentation, using real browsing trace data from a US panel."
 venue: "ICWSM 2024"
 year: 2024
