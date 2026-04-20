@@ -6,7 +6,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-const PROJECT_ORDER = ['google-topics-api', 'web-almanac-third-parties', 'iab-ccpa', 'google-search-market'];
+const PROJECT_ORDER = ['google-topics-api', 'iab-ccpa', 'web-almanac-third-parties', 'google-search-market'];
 const projects = (await getCollection('projects'))
   .filter((p) => p.id !== 'iab-gpp')
   .sort((a, b) => PROJECT_ORDER.indexOf(a.id) - PROJECT_ORDER.indexOf(b.id))
