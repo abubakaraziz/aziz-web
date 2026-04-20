@@ -5,7 +5,7 @@ description: "Co-authored the Third Parties chapter of the 2025 HTTP Archive Web
 venue: "HTTP Archive Web Almanac"
 year: 2025
 authors: "Muhammad Jazlan, Muhammad Abu Bakar Aziz, Barry Pollard"
-tech: ["BigQuery", "Data Analysis", "Web Measurement"]
+tech: ["BigQuery", "SQL", "Python", "pandas"]
 html: "https://almanac.httparchive.org/en/2025/third-parties"
 ---
 

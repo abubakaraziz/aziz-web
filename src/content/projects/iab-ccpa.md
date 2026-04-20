@@ -5,7 +5,7 @@ description: "Built a distributed crawler and audit pipeline to measure CCPA opt
 venue: "PoPETS 2024(4)"
 year: 2024
 authors: "Muhammad Abu Bakar Aziz, Christo Wilson"
-tech: ["Python", "Javascript", "Apache Spark", "Graphs"]
+tech: ["Python", "JavaScript", "Apache Spark", "Puppeteer"]
 paper: "/assets/pdf/iab-ccpa-compliance.pdf"
 code: "https://github.com/abubakaraziz/Assessing-IAB-CCPA-Framework"
 ---

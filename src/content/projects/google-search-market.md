@@ -5,7 +5,7 @@ description: "First large-scale analysis of Google Search's market share under v
 venue: "ICWSM 2024"
 year: 2024
 authors: "Desheng Hu*, Jeffery Gleason*, Muhammad Abu Bakar Aziz*, Nikolas Guggenberger, Ronald E. Robertson, Christo Wilson"
-tech: ["Python", "Apache Spark", "Web Measurement", "Data Pipelines"]
+tech: ["Python", "Apache Spark", "AWS", "pandas"]
 paper: "/assets/pdf/google_search_paper.pdf"
 award: "Best Paper Honourable Mention"
 ---

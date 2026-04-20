@@ -5,7 +5,7 @@ description: "Measured whether Google's Topics API can be abused to infer users'
 venue: "WWW 2026"
 year: 2026
 authors: "Athicha Srivirote, Muhammad Abu Bakar Aziz, Jeffrey Gleason, Desheng Hu, Christo Wilson"
-tech: ["Python", "Machine Learning", "Web Measurement", "Data Analysis"]
+tech: ["Python", "scikit-learn", "JavaScript", "Chrome DevTools Protocol"]
 paper: "/assets/pdf/google-topics-www26.pdf"
 ---
 
