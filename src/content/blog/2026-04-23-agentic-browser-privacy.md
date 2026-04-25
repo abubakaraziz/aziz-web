@@ -13,3 +13,8 @@ That changes the threat model in ways I find genuinely interesting. The traditio
 I'm still early in exploring this space, but one paper I'm planning to read is [Agentic Browsers and the Same-Origin Policy](https://agent-security.cs.washington.edu/agentic_browsers_sop.html), which looks at how existing browser security boundaries hold up, or don't, in agentic settings.
 
 More to come as I dig in.
+
+Other links on my reading list:
+
+- [Indirect Prompt Injections and Google's Layered Defense Strategy for Gemini](https://knowledge.workspace.google.com/admin/security/indirect-prompt-injections-and-googles-layered-defense-strategy-for-gemini)
+- [Comet and Prompt Injection](https://brave.com/blog/comet-prompt-injection/)
