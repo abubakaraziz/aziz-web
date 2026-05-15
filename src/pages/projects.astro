@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects'))
+  .filter((p) => !p.data.hide_from_projects)
   .sort((a, b) => b.data.year - a.data.year);
 ---
 
