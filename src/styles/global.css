@@ -35,7 +35,7 @@
   --color-surface: var(--surface);
   --color-accent: var(--accent);
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-inter); /* includes metric-matched fallbacks; see astro.config.mjs */
   --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 }
 

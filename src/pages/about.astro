@@ -1,7 +1,9 @@
 ---
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import portrait from '../assets/prof_pic.jpg';
 import { EMAIL, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 
 // The CV link appears once public/assets/cv.pdf is added.
@@ -17,11 +19,13 @@ const skills = [
 
 <Base title="About" description="PhD candidate at Northeastern University working on web privacy, measurement, and AI agents.">
   <div class="mb-10 flex items-start gap-6">
-    <img
-      src="/assets/prof_pic.jpg"
+    <Image
+      src={portrait}
       alt="Portrait of Abubakar Aziz"
-      width="96"
-      height="96"
+      width={96}
+      height={96}
+      densities={[1, 2]}
+      loading="eager"
       class="size-24 shrink-0 rounded-full object-cover"
     />
     <div>

@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import portrait from '../assets/prof_pic.jpg';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import { EMAIL, SITE_TITLE, SOCIAL_LINKS } from '../consts';
@@ -35,11 +37,13 @@ const news = [
   <!-- Hero -->
   <section class="mb-14">
     <div class="mb-5 flex items-start gap-6">
-      <img
-        src="/assets/prof_pic.jpg"
+      <Image
+        src={portrait}
         alt="Portrait of Abubakar Aziz"
-        width="112"
-        height="112"
+        width={112}
+        height={112}
+        densities={[1, 2]}
+        loading="eager"
         class="size-28 shrink-0 rounded-full object-cover"
       />
       <div>
