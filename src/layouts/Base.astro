@@ -1,15 +1,22 @@
 ---
-import { Font } from 'astro:assets';
+import { Font, getImage } from 'astro:assets';
 import '../styles/global.css';
+import portrait from '../assets/prof_pic.jpg';
 import { NAV_LINKS, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 
 interface Props {
   title: string;
   description?: string;
+  /** Set on blog posts so link previews and search engines treat them as articles. */
+  publishedDate?: Date;
 }
 
-const { title, description = SITE_DESCRIPTION } = Astro.props;
+const { title, description = SITE_DESCRIPTION, publishedDate } = Astro.props;
 const pageTitle = title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({ src: portrait, width: 400, height: 400, format: 'jpg' });
+const ogImageURL = new URL(ogImage.src, Astro.site);
+const appleTouchIcon = await getImage({ src: portrait, width: 180, height: 180, format: 'png' });
 
 const isActive = (href: string) => Astro.url.pathname.startsWith(href);
 ---
@@ -21,7 +28,25 @@ const isActive = (href: string) => Astro.url.pathname.startsWith(href);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href={appleTouchIcon.src} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} — Blog`} href={new URL('rss.xml', Astro.site)} />
+
+    <meta property="og:type" content={publishedDate ? 'article' : 'website'} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:alt" content={`Portrait of ${SITE_TITLE}`} />
+    {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
+    <meta name="twitter:card" content="summary" />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAF9" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F172A" />
+    <slot name="head" />
     <Font cssVariable="--font-inter" preload={[{ weight: '400' }]} />
     <script is:inline>
       // Runs before first paint to avoid a flash of the wrong theme.

@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import portrait from '../assets/prof_pic.jpg';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
-import { EMAIL, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { AUTHOR_NAME, EMAIL, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 import { formatDate } from '../utils/date';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -20,6 +20,19 @@ const projects = FEATURED_PROJECTS.map((id) => {
   return project;
 });
 
+// Structured data so search engines can show a knowledge panel for this site's author.
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE_TITLE,
+  alternateName: AUTHOR_NAME,
+  url: Astro.site,
+  email: `mailto:${EMAIL}`,
+  jobTitle: 'PhD Candidate',
+  affiliation: { '@type': 'CollegeOrUniversity', name: 'Northeastern University' },
+  sameAs: SOCIAL_LINKS.map(({ href }) => href),
+};
+
 const heroLinks = SOCIAL_LINKS.filter(({ label }) => label !== 'X');
 
 const news = [
@@ -34,6 +47,7 @@ const news = [
 ---
 
 <Base title={SITE_TITLE}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <!-- Hero -->
   <section class="mb-14">
     <div class="mb-5 flex items-start gap-6">
