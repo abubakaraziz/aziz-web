@@ -1,16 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../utils/date';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-const PROJECT_ORDER = ['google-topics-api', 'iab-ccpa', 'web-almanac-third-parties', 'google-search-market'];
-const projects = (await getCollection('projects'))
-  .filter((p) => p.id !== 'iab-gpp')
-  .sort((a, b) => PROJECT_ORDER.indexOf(a.id) - PROJECT_ORDER.indexOf(b.id))
-  .slice(0, 4);
+// Projects featured on the homepage, in display order.
+const FEATURED_PROJECTS = ['google-topics-api', 'iab-ccpa', 'web-almanac-third-parties', 'google-search-market'];
+const allProjects = await getCollection('projects');
+const projects = FEATURED_PROJECTS.map((id) => {
+  const project = allProjects.find((p) => p.id === id);
+  if (!project) throw new Error(`Featured project "${id}" not found in src/content/projects`);
+  return project;
+});
 
 const news = [
   { date: "Mar 2026", text: 'Industry talk accepted at PEPR 2026 — <a href="https://www.usenix.org/conference/pepr26/presentation/aziz" class="text-[#0D9488]">Why Consent Fails in Practice</a>' },
@@ -68,7 +72,7 @@ const news = [
             {post.data.title}
           </a>
           <span class="text-sm text-[#64748B] dark:text-slate-500 flex-shrink-0">
-            {post.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            {formatDate(post.data.date)}
           </span>
         </li>
       ))}

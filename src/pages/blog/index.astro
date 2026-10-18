@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { formatDate } from '../../utils/date';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -21,7 +22,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
               {post.data.title}
             </a>
             <span class="text-sm text-[#64748B] dark:text-slate-500 flex-shrink-0">
-              {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              {formatDate(post.data.date)}
             </span>
           </div>
           {post.data.description && (
