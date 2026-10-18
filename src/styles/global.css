@@ -2,61 +2,79 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-teal: #0D9488;
-  --color-teal-dark: #0f766e;
-  --color-bg: #FAFAF9;
-  --color-text: #0F172A;
-  --color-muted: #64748B;
-  --color-border: #E2E8F0;
-
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+/* Semantic color tokens. Components use these (text-ink, border-line, ...) instead of
+   pairing light/dark hex values, so dark mode is defined once, here. */
+:root {
+  color-scheme: light;
+  --page: #FAFAF9;
+  --ink: #0F172A;      /* headings, emphasis */
+  --body: #0F172A;     /* running text */
+  --muted: #64748B;    /* secondary text */
+  --line: #E2E8F0;     /* borders */
+  --surface: #F1F5F9;  /* chips, inline code */
+  --accent: #0F766E;   /* links; teal-700 meets WCAG AA on --page */
 }
 
-html {
-  background-color: #FAFAF9;
-  color: #0F172A;
-  font-family: var(--font-sans);
+:root.dark {
+  color-scheme: dark;
+  --page: #0F172A;
+  --ink: #F1F5F9;
+  --body: #CBD5E1;
+  --muted: #94A3B8;
+  --line: #1E293B;
+  --surface: #1E293B;
+  --accent: #2DD4BF;
 }
 
-a {
-  color: #0D9488;
-  text-decoration: none;
+@theme inline {
+  --color-page: var(--page);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+
+  --font-sans: var(--font-inter); /* includes metric-matched fallbacks; see astro.config.mjs */
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 }
 
-a:hover {
-  text-decoration: underline;
-}
+/* Kept inside layers so utility classes on individual elements can override them. */
+@layer base {
+  html {
+    background-color: var(--page);
+    color: var(--body);
+    font-family: var(--font-sans);
+  }
 
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  html.dark {
-    background-color: #0F172A;
-    color: #F1F5F9;
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 }
 
-html.dark {
-  background-color: #0F172A;
-  color: #F1F5F9;
-}
-
-html.dark a {
-  color: #2DD4BF;
-}
-
 /* Prose styles for blog posts */
-.prose h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; }
-.prose h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-.prose p { margin-bottom: 1.25rem; line-height: 1.75; }
-.prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
-.prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
-.prose li { margin-bottom: 0.25rem; line-height: 1.75; }
-.prose code { font-family: var(--font-mono); font-size: 0.875rem; background: #F1F5F9; padding: 0.125rem 0.375rem; border-radius: 0.25rem; }
-.prose pre { background: #1E293B; color: #E2E8F0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1.25rem; }
-.prose pre code { background: none; padding: 0; }
-.prose blockquote { border-left: 3px solid #0D9488; padding-left: 1rem; color: #64748B; margin-bottom: 1.25rem; }
-.prose a { color: #0D9488; text-decoration: underline; }
-
-html.dark .prose code { background: #1E293B; color: #E2E8F0; }
+@layer components {
+  .prose h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--ink); }
+  .prose h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--ink); }
+  .prose p { margin-bottom: 1.25rem; line-height: 1.75; }
+  .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+  .prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+  .prose li { margin-bottom: 0.25rem; line-height: 1.75; }
+  .prose code { font-family: var(--font-mono); font-size: 0.875rem; background: var(--surface); padding: 0.125rem 0.375rem; border-radius: 0.25rem; }
+  .prose pre { background: #1E293B; color: #E2E8F0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1.25rem; }
+  .prose pre code { background: none; padding: 0; }
+  .prose blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; color: var(--muted); margin-bottom: 1.25rem; }
+  .prose a { text-decoration: underline; }
+  .prose img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+}

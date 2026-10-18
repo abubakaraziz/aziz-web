@@ -1,0 +1,16 @@
+---
+interface Props {
+  variant: 'award' | 'venue' | 'status' | 'tag';
+}
+
+const { variant } = Astro.props;
+
+const styles = {
+  award: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 font-medium',
+  venue: 'bg-teal-50 text-accent dark:bg-teal-900/30 font-medium',
+  status: 'bg-surface text-muted',
+  tag: 'bg-teal-50 text-accent dark:bg-teal-900/20',
+};
+---
+
+<span class:list={['rounded px-2 py-0.5 text-xs', styles[variant]]}><slot /></span>

@@ -1,5 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
@@ -23,10 +24,12 @@ const projects = defineCollection({
     tech: z.array(z.string()).default([]),
     authors: z.string().optional(),
     paper: z.string().optional(),
-    code: z.string().optional(),
-    html: z.string().optional(),
+    code: z.url().optional(),
+    html: z.url().optional(),
     award: z.string().optional(),
     status: z.string().optional(),
+    // Listed on /publications only, not on /projects or the homepage.
+    hide_from_projects: z.boolean().default(false),
   }),
 });
 
